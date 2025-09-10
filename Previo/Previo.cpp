@@ -5,6 +5,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+//Previo 05
+//Celis Hernández Ronie
+//09 de septiembre del 2025
+//318143093
 
 // Shaders
 #include "Shader.h"
@@ -38,7 +42,7 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Modelado jerarquico", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Previo 05. Ronie Celis", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
@@ -75,6 +79,21 @@ int main() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	// 7) Estado de OpenGL
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// 8) Info del contexto (segura)
+	auto print_gl_str = [](GLenum pname, const char* label) {
+		const GLubyte* s = glGetString(pname);
+		if (s) std::cout << label << reinterpret_cast<const char*>(s) << std::endl;
+		else   std::cout << label << "(null) - No hay contexto o fallo al obtener cadena.\n";
+		};
+	print_gl_str(GL_VERSION, "> Version: ");
+	print_gl_str(GL_VENDOR, "> Vendor: ");
+	print_gl_str(GL_RENDERER, "> Renderer: ");
+	print_gl_str(GL_SHADING_LANGUAGE_VERSION, "> SL Version: ");
 
 	// Build and compile our shader program
 	Shader ourShader("Shader/core.vs", "Shader/core.frag");
